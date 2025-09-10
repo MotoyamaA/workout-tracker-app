@@ -1,23 +1,27 @@
 {
   "name": "workout-tracker-app",
-  "version": "1.0.0",
-  "description": "筋トレ記録アプリ - 日々のトレーニングを記録し、カロリー計算や自動提案機能付き",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "筋トレ記録アプリ - TypeScript版、DB連携、設定機能、プロフィール機能付き",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "vite"
+    "start": "vite",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1"
+    "lucide-react": "^0.263.1",
+    "zustand": "^4.4.1",
+    "date-fns": "^2.30.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
+    "typescript": "^5.0.2",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
@@ -28,8 +32,10 @@
     "fitness",
     "tracker",
     "react",
+    "typescript",
     "筋トレ",
-    "トレーニング"
+    "トレーニング",
+    "基礎代謝"
   ],
   "author": "MotoyamaA",
   "license": "MIT"
