@@ -22,6 +22,9 @@ import { useWorkoutStore } from './store/useWorkoutStore';
 import { ViewMode, Exercise, WorkoutExercise, UserProfile, ProfileForm, ExerciseForm } from './types';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { WorkoutView } from './components/WorkoutView';
+import { HistoryView } from './components/HistoryView';
+import { SettingsView } from './components/SettingsView';
 
 const WorkoutApp: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewMode>('home');
@@ -62,75 +65,6 @@ const WorkoutApp: React.FC = () => {
     setIsDarkMode(!isDarkMode);
     updateSettings({ theme: newTheme });
     document.documentElement.classList.toggle('dark', !isDarkMode);
-  };
-
-  // カロリー計算
-  const calculateCalories = (exercise: Exercise, sets: number, reps: number, weight: number): number => {
-    const baseCalories = exercise.caloriesPerRep * sets * reps;
-    const weightMultiplier = Math.max(1, weight / 20);
-    return Math.round(baseCalories * weightMultiplier);
-  };
-
-  // ワークアウト保存
-  const saveWorkout = () => {
-    if (!currentWorkout.exercises || currentWorkout.exercises.length === 0) {
-      alert('エクササイズを追加してください');
-      return;
-    }
-
-    const totalCalories = currentWorkout.exercises.reduce((sum, ex) => sum + ex.calories, 0);
-    
-    addWorkout({
-      date: currentWorkout.date || selectedDate,
-      exercises: currentWorkout.exercises,
-      totalCalories,
-      duration: currentWorkout.duration,
-      notes: currentWorkout.notes,
-    });
-
-    alert('ワークアウトを保存しました！');
-    setCurrentWorkout({});
-  };
-
-  // エクササイズをワークアウトに追加
-  const addExerciseToWorkout = (exercise: Exercise) => {
-    const newExercise: WorkoutExercise = {
-      ...exercise,
-      sets: 1,
-      reps: 10,
-      weight: 20,
-      calories: calculateCalories(exercise, 1, 10, 20),
-    };
-    
-    setCurrentWorkout({
-      ...currentWorkout,
-      date: selectedDate,
-      exercises: [...(currentWorkout.exercises || []), newExercise],
-    });
-  };
-
-  // エクササイズデータ更新
-  const updateWorkoutExercise = (index: number, field: keyof WorkoutExercise, value: any) => {
-    if (!currentWorkout.exercises) return;
-
-    const updatedExercises = [...currentWorkout.exercises];
-    updatedExercises[index] = { ...updatedExercises[index], [field]: value };
-    
-    // セット数、回数、重量が変更された場合はカロリーを再計算
-    if (['sets', 'reps', 'weight'].includes(field)) {
-      const exercise = updatedExercises[index];
-      updatedExercises[index].calories = calculateCalories(
-        exercise, 
-        exercise.sets, 
-        exercise.reps, 
-        exercise.weight
-      );
-    }
-    
-    setCurrentWorkout({
-      ...currentWorkout,
-      exercises: updatedExercises,
-    });
   };
 
   // 統計データを取得
@@ -692,9 +626,6 @@ const WorkoutApp: React.FC = () => {
     );
   };
 
-  // 残りのコンポーネント（ワークアウト画面、履歴画面、設定画面）と
-  // メインのレンダリング部分は次のファイルで続きます...
-
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
@@ -745,9 +676,11 @@ const WorkoutApp: React.FC = () => {
 
           {/* メインコンテンツ */}
           {currentView === 'home' && <HomeView />}
-          {currentView === 'profile' && <ProfileView />}
+          {currentView === 'workout' && <WorkoutView />}
+          {currentView === 'history' && <HistoryView />}
           {currentView === 'exercises' && <ExerciseView />}
-          {/* 他の画面は次のファイルで実装予定 */}
+          {currentView === 'profile' && <ProfileView />}
+          {currentView === 'settings' && <SettingsView />}
         </div>
       </div>
     </div>
