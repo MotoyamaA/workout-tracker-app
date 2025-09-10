@@ -24,9 +24,214 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: #213547;
+  background-color: #ffffff;
+}
+
+body.dark {
+  color: #ffffff;
+  background-color: #0f172a;
 }
 
 #root {
   width: 100%;
   margin: 0;
+}
+
+/* スクロールバーのスタイル */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* カスタムアニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* トグルスイッチのアニメーション */
+.toggle-switch {
+  transition: all 0.3s ease;
+}
+
+.toggle-switch:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* グラデーションボタン */
+.gradient-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* カード hover効果 */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card-hover:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* プログレスバー */
+.progress-bar {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 9999px;
+  height: 8px;
+  transition: width 0.5s ease;
+}
+
+/* 統計カードのアニメーション */
+.stat-card {
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.02);
+}
+
+/* ローディングアニメーション */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* フォーカス状態の改善 */
+.focus-ring:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #3b82f6;
+  ring-offset: 2px;
+}
+
+.dark .focus-ring:focus {
+  ring-offset-color: #1f2937;
+}
+
+/* 選択されたアイテムのハイライト */
+.selected-item {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* エラー状態 */
+.error-input {
+  border-color: #ef4444;
+  ring: 1px;
+  ring-color: #ef4444;
+}
+
+.error-text {
+  color: #ef4444;
+}
+
+.dark .error-text {
+  color: #f87171;
+}
+
+/* 成功状態 */
+.success-input {
+  border-color: #10b981;
+  ring: 1px;
+  ring-color: #10b981;
+}
+
+.success-text {
+  color: #10b981;
+}
+
+.dark .success-text {
+  color: #34d399;
+}
+
+/* モバイル向けスタイル */
+@media (max-width: 768px) {
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 0.5rem;
+    z-index: 50;
+  }
+
+  .dark .mobile-nav {
+    background: #1f2937;
+    border-top-color: #374151;
+  }
+
+  .mobile-content {
+    padding-bottom: 80px;
+  }
+}
+
+/* プリント用スタイル */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
 }
